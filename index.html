@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NexusStream — A stunning YouTube-inspired homepage clone with Crimson, Indigo, MediumOrchid & MidnightBlue glassmorphism design, fluid animations, and dynamic dark/light theme switching.">
+    <title>NexusStream — YouTube Clone</title>
+    
+    <!-- Google Fonts: Roboto for YouTube's exact typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for YouTube UI Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+
+    <!-- FIXED TOP HEADER -->
+    <header class="header">
+        <!-- LEFT: NAVIGATION & LOGO -->
+        <div class="header-left">
+            <button class="icon-btn ripple-btn" id="sidebarToggleBtn" aria-label="Toggle Sidebar Menu" title="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="#" class="logo-container" aria-label="YouTube Home" title="YouTube Home">
+                <!-- SVG Play button logo + Bounce animation -->
+                <div class="logo-icon-wrapper" id="logoIconWrapper">
+                    <svg viewBox="0 0 24 24" class="logo-svg" alt="YouTube Play Icon">
+                        <path d="M23.498 6.163c-.272-1.023-1.078-1.83-2.101-2.102C19.532 3.5 12 3.5 12 3.5s-7.532 0-9.397.561C1.58 4.333.774 5.14.502 6.163.051 8.046.051 12 .051 12s0 3.955.451 5.837c.272 1.023 1.078 1.83 2.101 2.102C4.468 20.5 12 20.5 12 20.5s7.532 0 9.397-.561c1.023-.272 1.83-1.078 2.101-2.102.451-1.882.451-5.837.451-5.837s0-3.954-.451-5.837z" fill="url(#auroraGrad)"/>
+                        <defs><linearGradient id="auroraGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9c6dff"/><stop offset="100%" stop-color="#00d4ff"/></linearGradient></defs>
+                        <polygon points="9.745,8.019 9.745,15.981 16.634,12" fill="#FFFFFF"/>
+                    </svg>
+                </div>
+                <span class="logo-text">YouTube</span>
+            </a>
+        </div>
+
+        <!-- CENTER: SEARCH CONTROLLER -->
+        <div class="header-center">
+            <div class="search-bar-container" id="searchBarContainer">
+                <form class="search-form" id="searchForm" onsubmit="event.preventDefault();">
+                    <input type="text" placeholder="Search" class="search-input" id="searchInput" aria-label="Search YouTube">
+                    <button class="search-btn ripple-btn" type="submit" aria-label="Search Button" title="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            <button class="icon-btn mic-btn ripple-btn" id="micBtn" aria-label="Search with your voice" title="Search with your voice">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+        </div>
+
+        <!-- RIGHT: EXTRA CONTROLS & AVATAR -->
+        <div class="header-right">
+            <!-- Rotating Light/Dark Theme Switcher -->
+            <button class="icon-btn theme-btn ripple-btn" id="themeToggleBtn" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+                <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </button>
+            <button class="icon-btn ripple-btn" aria-label="Create Video" title="Create">
+                <i class="fa-solid fa-circle-plus"></i>
+            </button>
+            
+            <!-- Bell icon with shake animation and badge -->
+            <div class="bell-wrapper">
+                <button class="icon-btn bell-btn" id="notificationBellBtn" aria-label="Notifications Panel" title="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-badge">9+</span>
+                </button>
+                
+                <!-- Floating Notification Dropdown List (5 items) -->
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="notif-header">Notifications</div>
+                    <div class="notif-list">
+                        <div class="notif-item">
+                            <div class="notif-avatar-gradient blue-grad">MB</div>
+                            <div class="notif-content">
+                                <span class="notif-text"><strong>MrBeast</strong> uploaded: I Survived 100 Days In An Inflatable Castle!</span>
+                                <span class="notif-time">2 minutes ago</span>
+                            </div>
+                            <img class="notif-thumb" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=64" alt="notif-thumb">
+                        </div>
+                        <div class="notif-item">
+                            <div class="notif-avatar-gradient red-grad">FS</div>
+                            <div class="notif-content">
+                                <span class="notif-text"><strong>Fireship</strong> uploaded: CSS is officially ruined. Here's why.</span>
+                                <span class="notif-time">15 minutes ago</span>
+                            </div>
+                            <img class="notif-thumb" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=64" alt="notif-thumb">
+                        </div>
+                        <div class="notif-item">
+                            <div class="notif-avatar-gradient orange-grad">KZ</div>
+                            <div class="notif-content">
+                                <span class="notif-text"><strong>Kurzgesagt</strong> uploaded: What Happens if We Burn the Moon?</span>
+                                <span class="notif-time">1 hour ago</span>
+                            </div>
+                            <img class="notif-thumb" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=64" alt="notif-thumb">
+                        </div>
+                        <div class="notif-item">
+                            <div class="notif-avatar-gradient purple-grad">VT</div>
+                            <div class="notif-content">
+                                <span class="notif-text"><strong>Veritasium</strong> uploaded: The Science of Silent Backdrops</span>
+                                <span class="notif-time">4 hours ago</span>
+                            </div>
+                            <img class="notif-thumb" src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=64" alt="notif-thumb">
+                        </div>
+                        <div class="notif-item">
+                            <div class="notif-avatar-gradient teal-grad">MKB</div>
+                            <div class="notif-content">
+                                <span class="notif-text"><strong>Marques Brownlee</strong> uploaded: The Ultimate Cyberpunk Smartphone 2026</span>
+                                <span class="notif-time">1 day ago</span>
+                            </div>
+                            <img class="notif-thumb" src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=64" alt="notif-thumb">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar -->
+            <div class="avatar-container" title="User Profile">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop" class="avatar-pic" alt="User Profile">
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY GRID WRAPPER -->
+    <div class="main-layout-container">
+        
+        <!-- COLLAPSIBLE LEFT SIDEBAR -->
+        <aside class="sidebar" id="sidebar" aria-label="Sidebar Menu Navigation">
+            <div class="sidebar-scrollable">
+                
+                <!-- SECTION A: PRIMARY NAV -->
+                <nav class="sidebar-nav-group" aria-label="Primary Nav">
+                    <ul>
+                        <li class="sidebar-item active ripple-btn" id="sidebarHomeBtn">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Home</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>Shorts</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-circle-play"></i>
+                            <span>Subscriptions</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-music"></i>
+                            <span>YouTube Music</span>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <hr class="sidebar-divider">
+
+                <!-- SECTION B: LIBRARY / USER -->
+                <div class="sidebar-section-title">You <i class="fa-solid fa-chevron-right not-collapsed-only"></i></div>
+                <nav class="sidebar-nav-group" aria-label="Your Account">
+                    <ul>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>History</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-list-ul"></i>
+                            <span>Playlists</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-square-caret-right"></i>
+                            <span>Your Videos</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-regular fa-clock"></i>
+                            <span>Watch Later</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-regular fa-thumbs-up"></i>
+                            <span>Liked Videos</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-circle-down"></i>
+                            <span>Downloads</span>
+                        </li>
+                    </ul>
+                </nav>
+
+                <hr class="sidebar-divider">
+
+                <!-- SECTION C: CREATOR SUBSCRIPTIONS -->
+                <div class="sidebar-section-title not-collapsed-only">Subscriptions</div>
+                <nav class="sidebar-nav-group not-collapsed-only" aria-label="Subscriptions List">
+                    <ul>
+                        <li class="sidebar-item creator-item ripple-btn">
+                            <div class="creator-avatar red-grad">MB</div>
+                            <span>MrBeast</span>
+                        </li>
+                        <li class="sidebar-item creator-item ripple-btn">
+                            <div class="creator-avatar teal-grad">MKB</div>
+                            <span>Marques Brownlee</span>
+                        </li>
+                        <li class="sidebar-item creator-item ripple-btn">
+                            <div class="creator-avatar orange-grad">FS</div>
+                            <span>Fireship</span>
+                        </li>
+                        <li class="sidebar-item creator-item ripple-btn">
+                            <div class="creator-avatar purple-grad">VT</div>
+                            <span>Veritasium</span>
+                        </li>
+                        <li class="sidebar-item creator-item ripple-btn">
+                            <div class="creator-avatar blue-grad">KZ</div>
+                            <span>Kurzgesagt</span>
+                        </li>
+                    </ul>
+                </nav>
+
+                <hr class="sidebar-divider not-collapsed-only">
+
+                <!-- SECTION D: EXPLORE MENU -->
+                <div class="sidebar-section-title not-collapsed-only">Explore</div>
+                <nav class="sidebar-nav-group not-collapsed-only" aria-label="Explore Menu">
+                    <ul>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-fire"></i>
+                            <span>Trending</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            <span>Shopping</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-music"></i>
+                            <span>Music</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-clapperboard"></i>
+                            <span>Movies & TV</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-tower-broadcast"></i>
+                            <span>Live</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-gamepad"></i>
+                            <span>Gaming</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-newspaper"></i>
+                            <span>News</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-trophy"></i>
+                            <span>Sports</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>Learning</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-shirt"></i>
+                            <span>Fashion & Beauty</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-podcast"></i>
+                            <span>Podcasts</span>
+                        </li>
+                    </ul>
+                </nav>
+
+                <hr class="sidebar-divider not-collapsed-only">
+
+                <!-- FOOTER ACTIONS & COPYRIGHTS -->
+                <footer class="sidebar-footer not-collapsed-only" aria-label="YouTube Footer Links">
+                    <nav class="footer-nav-group">
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Settings</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-flag"></i>
+                            <span>Report history</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-circle-question"></i>
+                            <span>Help</span>
+                        </li>
+                        <li class="sidebar-item ripple-btn">
+                            <i class="fa-solid fa-message"></i>
+                            <span>Send feedback</span>
+                        </li>
+                    </nav>
+                    <div class="footer-copyright">
+                        <p>© 2025 Google LLC</p>
+                    </div>
+                </footer>
+            </div>
+        </aside>
+
+        <!-- MAIN VIEW PANEL -->
+        <main class="main-content" id="mainContent">
+            
+            <!-- STICKY HORIZONTALLY SCROLLABLE CATEGORY CHIPS BAR -->
+            <div class="chips-wrapper" id="chipsWrapper">
+                <button class="scroll-arrow scroll-left ripple-btn" id="scrollLeftBtn" aria-label="Scroll left category chips" title="Scroll Left">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                
+                <div class="chips-container" id="chipsContainer">
+                    <div class="chip active" data-category="all">All</div>
+                    <div class="chip" data-category="telugu">Telugu Hits</div>
+                    <div class="chip" data-category="music">Music</div>
+                    <div class="chip" data-category="gaming">Gaming</div>
+                    <div class="chip" data-category="study">Study & Coding</div>
+                    <div class="chip" data-category="podcasts">Podcasts</div>
+                    <div class="chip" data-category="live">Live Streams</div>
+                    <div class="chip" data-category="mixes">Mixes</div>
+                    
+                    <!-- Chip Underline Slider element -->
+                    <div class="chip-slider-line" id="chipSliderLine"></div>
+                </div>
+
+                <button class="scroll-arrow scroll-right ripple-btn" id="scrollRightBtn" aria-label="Scroll right category chips" title="Scroll Right">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- SKELETON SHIMMER LOADING CONTAINER (1s Initial Delay) -->
+            <div class="skeleton-grid" id="skeletonGrid">
+                <!-- Generating 12 shimmer loading items -->
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton-thumb shimmer"></div>
+                    <div class="skeleton-detail">
+                        <div class="skeleton-avatar shimmer"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-desc shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTION VIDEO GRID -->
+            <section class="video-grid" id="videoGrid" style="display: none;" aria-label="YouTube Video Grid">
+                <!-- Populated dynamically via script.js -->
+            </section>
+            
+            <!-- EMPTY SEARCH RESULTS VIEW -->
+            <section class="no-results-view" id="noResultsView" style="display: none;" aria-label="No results panel">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <h2>No results found</h2>
+                <p>Try matching title keywords, creator names, or category channels.</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- BOTTOM MOBILE SYSTEM NAVIGATION BAR -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation Bar">
+        <div class="bottom-nav-item active ripple-btn" id="mobileHomeBtn">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="bottom-nav-item ripple-btn">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Shorts</span>
+        </div>
+        <div class="bottom-nav-item ripple-btn">
+            <i class="fa-solid fa-circle-plus"></i>
+            <span>Create</span>
+        </div>
+        <div class="bottom-nav-item ripple-btn">
+            <i class="fa-solid fa-circle-play"></i>
+            <span>Subscriptions</span>
+        </div>
+        <div class="bottom-nav-item ripple-btn">
+            <i class="fa-solid fa-folder-open"></i>
+            <span>Library</span>
+        </div>
+    </nav>
+
+    <!-- VOICE MICROPHONE MODAL SEARCH -->
+    <div class="voice-modal-backdrop" id="voiceModal" role="dialog" aria-modal="true" aria-label="Voice Search Panel">
+        <div class="voice-modal-card">
+            <button class="voice-close-btn ripple-btn" id="voiceCloseBtn" aria-label="Close Voice Search"><i class="fa-solid fa-xmark"></i></button>
+            <div class="voice-header" id="voiceHeader">Listening...</div>
+            <div class="voice-pulsing-circle-wrapper">
+                <div class="voice-pulse-ring ring-1"></div>
+                <div class="voice-pulse-ring ring-2"></div>
+                <div class="voice-pulse-core">
+                    <i class="fa-solid fa-microphone"></i>
+                </div>
+            </div>
+            <div class="voice-hint">Say something to search YouTube clone...</div>
+        </div>
+    </div>
+
+    <!-- FLOATING BOTTOM-RIGHT MINI-PLAYER -->
+    <div class="mini-player-drawer" id="miniPlayer" role="complementary" aria-label="Video Player Widget">
+        <div class="mini-player-screen">
+            <!-- Simulated Emoji/Gradient screen artwork -->
+            <div class="mini-screen-art" id="miniScreenArt">🎬</div>
+            <div class="mini-screen-overlay"><i class="fa-solid fa-play"></i> Playing</div>
+        </div>
+        <div class="mini-player-info">
+            <h4 class="mini-title" id="miniTitle">Video Title Loading...</h4>
+            <span class="mini-channel" id="miniChannel">Channel Name</span>
+        </div>
+        <div class="mini-player-controls">
+            <button class="mini-control-btn ripple-btn" id="miniPlayBtn" title="Play/Pause"><i class="fa-solid fa-pause"></i></button>
+            <button class="mini-control-btn ripple-btn" id="miniCloseBtn" title="Close Player" aria-label="Close Mini-Player"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- FLOATING TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-panel" id="toastPanel" role="alert" aria-live="polite">Coming soon</div>
+
+    <!-- Core Javascript logic -->
+    <script src="script.js"></script>
+</body>
+</html>
